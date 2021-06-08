@@ -1,0 +1,75 @@
+\textbf{The scattering resonance problem (SRP)}:
+
+Seek non-trivial $u(x;k)$ such that:
+
+\begin{align}
+    \partial_x (\sigma(x) \partial_x u(x)) + k^2 n^2(x)u(x) = 0 \label{1}\\
+    (\partial_x + ik)u =0, x=a \nonumber\\
+    (\partial_x - ik)u =0, x=b \nonumber
+\end{align}
+
+Sensitivity analysis: computation of gradients of $k_\mathrm{res}(\sigma,n)$ with respect to the "design parameters" $\sigma(x),n(x):$ $\frac{\delta k_\text{res}}{\delta \sigma}$ and $\frac{\delta k_\mathrm{res}}{\delta n}$.
+
+we suppress the dependence on $\sigma(x)$ when studying $\frac{\delta k_\mathrm{res}}{\delta n}$
+
+Let $\sigma_0$ be an initial structure and $k(\sigma_0$ be one of its scattering resonances. We fix $n(x) = n_0(x)$ and perturb $\sigma$ by a small amount:
+$\sigma_0(x) 	\longrightarrow \sigma_0(x) + \delta \sigma(x).$
+
+Next, we expand the scattering resonance for the perturbed structure $\sigma_0 + \delta \sigma$ about the scattering resonance of the unperturbed structure $\sigma_0$.
+
+\begin{align}\label{2}
+    \sigma = \sigma_0 + \delta \sigma \nonumber\\
+    u(x;\sigma) = u_0(x) + \delta u\\
+    k(\sigma) = k(\sigma_0) + \delta k 
+\end{align}
+
+Plugging \eqref{2} into \eqref{1} yields:
+
+\begin{align}
+    \partial_x ((\sigma_0 + \delta \sigma) \partial_x (u_0(x) + \delta u)) + (k(\sigma_0) + \delta k)^2 n_0^2(u_0(x) + \delta u) = 0 \\
+    (\partial_x + i(k(\sigma_0) + \delta k))(u_0(x) + \delta u) =0, x=a \nonumber\\
+    (\partial_x - i(k(\sigma_0) + \delta k))(u_0(x) + \delta u) =0, x=b \nonumber
+\end{align}
+
+after expanding and discarding all non-linear terms in the increments $\delta \sigma,\delta u,\delta k$ we obtain the system:
+
+\begin{align}
+    \partial_x (\sigma_0 \: \partial_x \delta u) + n_0^2 \: k^2(\sigma_0) \: \delta u = - \partial_x(\delta \sigma \: \partial_x u_0) - 2 \, k(\sigma_0) \: \delta k \: n_0^2 \: u_0\label{3}\\
+    (\partial_x + i \, k(\sigma_0)) \: \delta u = -i\, \delta k \: u_0(x) , x=a \nonumber\\
+    (\partial_x - i \, k(\sigma_0)) \: \delta u = +i\, \delta k \: u_0(x), x=b \nonumber
+\end{align}
+
+We now multiply \eqref{3} by $u_0$, use \eqref{1} and integrate by parts. We find for the first and second term respectively:
+
+\begin{align}
+    \int_{a}^{b} u_0\, \partial_x(\sigma_0 \partial_x \delta u) \,dx  =  \Big[ u_0 \, \sigma_0 \, \partial_x \delta u  \Big]_a^b - \int_{a}^{b} (\partial_x u_0)\,(\sigma_0 \, \partial_x \delta u) = \\
+    = \Big[ u_0 \, \sigma_0 \, \partial_x \delta u  \Big]_a^b - \Big[ \sigma_0 \, (\partial_x u_0) \, \delta u  \Big]_a^b + \int_{a}^{b} \delta u \, \partial_x(\sigma_0 \, \partial_x u_0) \, dx 
+\end{align}
+
+   
+    
+\begin{align}    
+    \int_{a}^{b} u_0 \, n_0^2 \, k^2(\sigma_0) \, \delta u \, dx = - \int_{a}^{b} \delta u \, \partial_x (\sigma_0 \, \partial_x u_0)\, dx 
+\end{align}
+    
+By using the boundary conditions of \eqref{1} and \eqref{2} as well as the fact that $\sigma_0 (a) = \sigma_0 (b) = 1$ we find for the LHS:
+
+\begin{align*}
+    \mathrm{LHS} &= \Big[ u_0 \, \sigma_0 \, \partial_x \delta u  \Big]_a^b - \Big[ \sigma_0 \, (\partial_x u_0) \, \delta u  \Big]_a^b\\
+    &= u_0(b)\,(i \, \delta k \, u_0(b) + i \, k(\sigma_0) \, \delta u) + u_0(a)\,(i \, \delta k \, u_0 + i\, k(\sigma_0) \, \delta u) - \delta u \, i\, k(\sigma_0) \, u_0(b) - \delta u \, i \, k \, u_0(a) \\
+    &= i \, \delta k \, (u_0^2(b) + u_0^2(a))
+\end{align*}
+
+For RHS use the fact that $\delta \sigma(a) = \delta \sigma(b) = 0$:
+
+\begin{align}
+    -\int_{a}^{b} u_0 \, \partial_x(\delta \sigma \, \partial_x u_o) -2 \, k(\sigma_0) \, \delta k \int_{a}^{b} n^2_0 \, u^2_0 &= -\Big[u_0 \, \delta \sigma \, \partial_x u_0 \Big]_a^b + \int_{a}^{b} \delta \sigma \, (\partial_x u_0)^2 \, dx -2 \, k(\sigma_0) \, \delta k \int_{a}^{b} n^2_0 \, u^2_0\\
+    &= \int_{a}^{b} \delta \sigma \, (\partial_x u_0)^2 \, dx -2 \, k(\sigma_0) \, \delta k \int_{a}^{b} n^2_0 \, u^2_0
+\end{align}
+
+Putting it all together we finally obtain:
+
+
+\begin{align}
+\delta k = \int_{a}^{b} \left[\frac{(\partial_x u_0)^2}{2 \, k(\sigma_0)\int_{a}^{b} n^2_0 \, u^2_0 \, dx  + i \, \left[u_0^2(b)+ u_0^2(a)\right]} \right]\, \delta \sigma(x) \, dx    
+\end{align}

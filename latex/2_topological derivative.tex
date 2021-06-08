@@ -1,0 +1,45 @@
+topological derivative -> change in small region
+
+We now consider a second type of derivative; instead of perturbing the whole structure we only consider perturbations in a small region $(-\frac{\delta}{2},\frac{\delta}{2})$.
+
+%ammari paper prop 2.1
+
+%picture of new setup
+\includegraphics{images/temp pic 2.PNG}
+
+The perturbed problem now reads: 
+\begin{equation}
+\begin{dcases*}
+\partial_x((1/\epsilon_{\delta}) \, \partial_x u_{\delta}) + \omega_{\delta}^2 \, \mu_{\delta} \, u_{\delta} = 0 &
+  in $(a,b)$,\\
+(1/\epsilon_m) \, \partial_x u_{\delta} + i \, \omega_{\delta} \ u_{\delta} = 0 &
+  at $a$,\\
+(1/\epsilon_m) \, \partial_x u_{\delta} - i \, \omega_{\delta} \ u_{\delta} = 0 &
+  at $b$,\\  
+\epsilon_m \, \mu_m \, \int_{a}^{b} \lvert u_{\delta} \rvert^2 dx = 1.
+\end{dcases*}
+\end{equation}
+%correspond to TM polarization
+%physical interpretatation of  scattering resonance in time domain
+It was shown in \cite{Ammari2020} that the scattering resonances of the perturbed problem follow the obey the following asymptotic behaviour:
+\begin{prop}
+    As $\delta \to 0$, we have
+\[ \omega_\delta = \omega_0 + \delta \omega_1 + O(\delta^2),\]
+where
+\begin{align}
+    \omega_1 = \frac{\alpha(\partial_x u_0(0))^2 + \omega_0^2 \epsilon_m (\mu_c - \mu_m)(u_0(0))^2}{2 \omega_0 \int_a^b u_0^2 \, dx + i \epsilon_m ((u_0(a))^2 + (u_0(b))^2)}.
+\end{align}
+The polarization $\alpha$ is defined by
+\begin{align}
+    \alpha = \left( \frac{\epsilon_m}{\epsilon_c}-1\right) \partial_x \left(\frac{1}{2}\right)\big|_-,
+\end{align}
+and $v^{(1)}$ is the unique solution (up to a constant) of the auxiliary differential equation:
+\begin{equation*}
+\begin{dcases}
+\partial_x(1/\tilde{\epsilon}) \, \partial_x v^{(1)} = 0,\\
+v^{(1)}(\xi) \sim \xi \qquad \mathrm{as}\; \lvert \xi \rvert \to +\infty,
+\end{dcases}\
+\end{equation*}
+with $\tilde{\epsilon} = \epsilon_c \chi_{(-1/2,1/2)} + \epsilon_m \chi_{\mathbb{R}\setminus (-1/2,1/2)}$. Here $\big|_-$ indicates the limit at $((1/2)^-$ and $\xi_I$ denotes the characteristic function of the set $I$.
+\end{prop}
+

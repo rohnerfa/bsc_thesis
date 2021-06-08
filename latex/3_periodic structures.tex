@@ -1,0 +1,273 @@
+\section{General Facts}
+In this subsection we first recall some general facts about periodic ordinary differential equations.\\
+We consider a general linear first-order system:
+\begin{equation}\label{general_lin_eq}
+    \dot{x}(t) = A(t)x(t),
+\end{equation}
+for $A \in C(I,\mathbb{R}^{n \times n})$.\par
+By the Cauchy-Lipschitz theorem there exists a unique solution satisfying the initial condition $x(t_0) = x_0$. Moreover, we observe that linear combinations of solutions are again solutions. Thus, the set of all solutions forms a vector space and we can write the solution of \eqref{general_lin_eq} corresponding to the initial condition $x(t_0) = x_0$ as
+\[ \phi(t,t_0,x_0) = \sum_{j=1}^{n} \phi(t,t_0,\delta_j) x_{0,j}, \]
+where $\delta_j$ is the $j$th canonical basis vector and $x_{0,j}$ is the $j$th component of $x_0$.
+
+%define this, and property of sol given
+$\Pi(t,t_0) \coloneqq (\phi(t,t_0,\delta_j),\dots , \phi(t,t_0,\delta_n))$
+
+%rewrite this better don't start with symbol
+\begin{defn}
+    $\Pi(t,t_0)$ is called principal matrix solution (at $t_0$).\\ 
+    The solution satisfying the initial condition $x(t_0)=x_0$ is then given by $\Pi(t,t_0)x_0$.
+\end{defn}
+
+For the rest of this subsection consider \eqref{general_lin_eq} in the case where $A(t)$ is periodic with some period $T > 0$, i.e. $A(t+T) = A(t)$.
+
+\begin{defn}
+    We call the matrix $M(t_0)$ given by
+    \[ M(t_0) = \Pi(t_0+T,t_0)\]
+    the monodromy matrix.
+\end{defn}
+
+\begin{thm}[Floquet]\label{floquet}
+    Suppose $A(t)$ is periodic. Then the principal matrix solution of the corresponding linear system has the form
+    \[ \Pi(t,t_0) = P(t,t_0) \exp((t-t_0) \,Q(t_0)), \]
+    where $P(.,t_0)$ has the same period as $A(.)$ and $P(t_0,t_o) = \mathbb{I}$.
+\end{thm}
+
+A proof of \eqref{floquet} can for example be found in \cite{teschl2012ordinary}.
+
+%put remark
+\begin{rem}
+    Note that $Q(t_0)$ and $M(t_0)$ are related via
+    \[ M(t_0) = \exp(T\,Q(t_0)). \]
+\end{rem}
+\begin{lemma}\label{lemma6}
+    The following property holds for the principal matrix solution:
+    \[ \Pi(t+T,t_0) = \Pi(t,t_0)M(t_0).\]
+\end{lemma}
+\begin{proof}
+    Using the representation of the principal matrix solution from the previous theorem we have
+    \begin{align*}
+        \Pi(t+T,t_0) &= P(t+T,t_0) \exp((t+T-t_0)\,Q(t_0))\\
+        &= P(t) \exp((t-t_0)\,Q(t_0)) \exp(T\,Q(t_0))\\
+        &= \Pi(t,t_0) M(t_0),
+    \end{align*}
+    where we used that $P(.)$ has period $T$ and the previous remark about the monodromy matrix.
+\end{proof}
+
+
+
+
+%put reference to  periodic system
+\begin{thm}[adapted from \cite{Brown2013}] \label{thm_eigenval}
+    Let $M(t_0)$ as above be the monodromy matrix of a $T$ periodic system. Then $e^{\mu} \in \mathbb{C}$ is an eigenvalue of $M(t_0)$ if and only if there exists a non-trivial solution $u$ such that
+    \begin{equation}
+        u(t+T) = e^{\mu} u(t) \qquad (t \in \mathbb{R})\label{eq:thm_eigenval}
+    \end{equation}
+\end{thm}
+\begin{proof}
+    Let $(v,e^{\mu}$ be an eigenpair for $M(t_0)$. We set $u(t) = \Pi(t,t_0)$. Then $u$ is a solution to \eqref{periodic system} and using \eqref{lemma6} we have
+    \begin{align*}
+        u(t+T) = \Pi(t+T,t_0)v = \Pi(t,t_0) M(t_0)v = e^{\mu} \Pi(t,t_0) v = e^{\mu} u(t).
+    \end{align*}
+    Conversely, if $u$ is a non-trivial solution satisfying \eqref{eq:thm_eigenval}, then $u(t_0) \neq 0$ and it holds
+    \[M(t_0)u(t_0) = \Pi(t_0 + T,t_0) u(t_0) = u(t_0+T) = e^{\mu} u(t_0).\]
+    Therefore, $u(t_0)$ is an eigenvector of $M(t_0)$ for the eigenvalue $e^{\mu}$.
+\end{proof}
+
+
+This leads us to the following definition:
+\begin{defn}
+    The eigenvalues $\rho_j$ of $M(t_0)$  are known as Floquet multipliers (also characteristic multipliers) and the eigenvalues $\gamma_j$ of $Q(t_0)$ as Floquet exponents (characteristic exponents).\\
+    By the previous remark it holds $\rho_j = e^{T \gamma_j}$.
+\end{defn}
+
+
+
+
+
+
+
+
+
+
+\section{section 2}
+We now turn to the study of one-dimensional periodic structures. Consider the periodic differential operator $\mathcal{L}$ defined by
+
+\begin{equation}
+    \mathcal{L}\psi = - \frac{1}{\epsilon(x)} \partial_x \left( \frac{1}{\mu(x)} \partial_x \right) \qquad \mathrm{for}\, x \in \mathbb{R},
+\end{equation}
+%
+%show self adjoint + discrete set of eigenvalues
+where $\epsilon(x)$ and $\mu(x)$ are periodic, positive and piecewise continuous functions with period 1.\\
+In this section let $X$ be the Hilbert space $L^2[0,1]$ equipped with the inner product
+\begin{align*}
+    (u,v) = \int_0^1 \epsilon(x)\, u(x)\, \overline{v}(x)\, dx.
+\end{align*}
+We define the function space
+\begin{equation*}
+    L_k^2 = \{ u \in L_{loc}^2 : u(x+1) = e^{ik} u(x) \},
+\end{equation*}
+and consider for $k \in [-\pi,\pi]$ the following eigenvalue problem
+\begin{equation}\label{eval_problem}
+    \mathcal{L}\psi(x) = E \psi(x), \quad x \in \mathbb{R}, \quad \psi \in L^2_k.
+\end{equation}
+\begin{lemma}
+    The eigenvalue problem \eqref{eval_problem} is self-adjoint.
+\end{lemma}
+\begin{proof}
+    Let $\psi$, $\phi \in L_k^2$. It holds that
+    \[ \frac{d}{dx} \psi(x+1) = e^{ik} \frac{d}{dx}\psi(x) \implies \psi'(1) = e^{ik}\psi'(0).\]
+    Now integrating by parts and using above equation yields
+    \begin{align*}
+    (\psi,\mathcal{L}\phi) = \overline{(\mathcal{L}\phi,\psi)} &= -\overline{\int_0^1 \frac{d}{dx}\left(\frac{1}{\mu(x)} \frac{d\phi}{dx}\right)\overline{\psi}(x) \, dx}\\
+    &= -\int_0^1 \frac{d}{dx}\left(\frac{1}{\mu(x)} \frac{d\overline{\phi}}{dx}\right)\psi(x) \, dx\\
+    &= \int_0^1 \frac{1}{\mu(x)} \frac{d \overline{\phi}}{dx} \frac{d \psi}{dx} \, dx\\
+    &= -\int_0^1 \frac{d}{dx}\left(\frac{1}{\mu(x)} \frac{d\psi}{dx}\right)\overline{\phi}(x) = (\mathcal{L} \psi, \phi),
+    \end{align*}
+    where the boundary terms vanish since 
+    \begin{align*}
+        \left[ \frac{1}{\mu(x)} \frac{d \overline{\phi}}{dx}(x) \, \psi(x) \right]_0^1 = \frac{1}{\mu(1)} e^{-ik} \overline{\phi'}(0)\, e^{ik}\psi(0) - \frac{1}{\mu(0)} \overline{\phi'}(0) \, \psi(0) = 0, 
+    \end{align*}
+    where we used that $\mu(1) = \mu(0)$ as well as the equation above. A similar computation shows that the other boundary term vanishes as well.
+\end{proof}
+
+put some part explaining the structure of the spectrum:
+why does it have this form? why only essential spectrum?
+
+Following the theory of the last section we determine the principal matrix solution as well as the monodromy matrix.
+
+for each $E \in \mathbb{R}$ let $\psi_{E,1}$ and $\psi_{E,2}$ be the unique solutions to the following problems:
+
+\begin{align}
+    (\mathcal{L}-E) \psi_{E,1} = 0,\qquad \psi_{E,1}(0) = 1,\quad \frac{1}{\mu(0)} \psi_{E,1}'(0) = 0,\\
+    (\mathcal{L}-E) \psi_{E,2} = 0,\qquad \psi_{E,2}(0) = 0,\quad \frac{1}{\mu(0)} \psi_{E,2}'(0) = 1,
+\end{align}
+Then the principal matrix solution is given by
+\begin{equation}
+    \Psi_E(x) (\equiv \Pi_E(x,x_0)) = 
+    \begin{pmatrix}
+        \psi_{E,1}(x) & \psi_{E,2}(x)\\
+        \frac{1}{\mu(x)}\psi_{E,1}'(x) & \frac{1}{\mu(x)}\psi_{E,2}'(x)
+    \end{pmatrix},
+\end{equation}
+and the monodromy matrix by $M(E) \coloneqq \Psi_E(1)$.
+
+Using the theorem about eigenvalues we find that the eigenvalues of $\mathcal{L}$ in $L_k^2$ can be characterized by the eigenvalues of $M(E)$. In particular we have the following lemma:
+\begin{lemma}\label{lemma_eigenval}
+    \begin{enumerate}
+        \item If $(\psi,E)$ is an eigenpair in $L_k^2$, then $(\psi(0),\frac{1}{\mu(0)}\psi'(0))^T$ is an eigenvector of the matrix $M(E)$ with the corresponding eigenvalue $e^{ik}$.
+        \item If the matrix $M(E)$ has an eigenpair $(e^{ik},(a_1,a_2)^T)$, then $\psi(x) = a_1 \psi_{E,1}(x)+a_2\psi_{E,2}(x)$ is a Bloch mode of $\mathcal{L}$ in $\L_k^2$.
+    \end{enumerate}
+\end{lemma}
+\begin{proof}
+    The proof folows as a direct application of \eqref{thm_eigenval} for the case where $t_0 = 0$ and $T=1$.
+\end{proof}
+
+\begin{defn}
+    We define the discriminant $D(E)$ of $M(E)$ by
+    \[ D(E) = Tr M(E) = \psi_{E,1} (1) + \frac{1}{\mu(1)} \psi_{E,2}'(1).\]
+\end{defn}
+A simple calculation using the fact that $det M(E) = 1$ then yields the following characterization for the eigenvalues of $M(E)$:
+\begin{align}
+    \lambda_{E,1} = \frac{D(E) - \sqrt{D(E)^2 -4}}{2}, \quad \lambda_{E,2} = \frac{D(E) + \sqrt{D(E)^2 -4}}{2}.
+\end{align}
+This characterization leads us to a lemma about the spectrum of $\mathcal{L}$.
+\begin{lemma}
+    For $E \in \mathbb{R}$ there holds
+    \[E \in \sigma(\mathcal{L}) \iff \lvert D(E) \rvert \leq 2. \] \end{lemma}
+\begin{proof}
+    In the case $\lvert D(E) \rvert \leq 2$, we see that $\lambda_{E,1} = \overline{\lambda_{E,2}}$ and it holds $\lvert \lambda_{E,1}\rvert = \lvert \lambda_{E,2}\rvert=1$. Then, by \eqref{lemma_eigenval} it follows that $E \in \sigma(\mathcal{L}).$ On the other hand, if $\lvert D(E) \rvert > 2$, then either it holds $\lvert \lambda_{E,1} \rvert < 1 < \lvert \lambda_{E,2} \rvert$ or $\lvert \lambda_{E,2}\rvert < 1 < \rvert \lambda_{E,1} \rvert$. This implies that $E \notin \sigma(\mathcal{L}).$ 
+\end{proof}
+%
+%
+%
+%
+%
+%
+%
+%
+%
+%
+%
+%
+%
+%
+%
+\subsection{section perturbation }
+%
+Perturb the system
+\begin{align*}
+    \begin{dcases*}
+        \mu(x) \to \mu(x) + \delta \tilde{\mu}(x),\\
+        \epsilon(x) \to \epsilon(x) + \delta \tilde{\epsilon}(x),
+    \end{dcases*}
+\end{align*}
+%
+where $\lvert \delta \rvert \ll 1$, and $\tilde{\mu}(x)$ and $\tilde{\epsilon}(x)$ are two piecewisely continuous periodic functions with period $1$ satisfying $\norm{\tilde{\mu}}_{L^\infty} + \norm{\tilde{\epsilon}}_L^\infty = 1$.
+%
+\begin{equation}
+    \mathcal{L}_{\delta}\psi(x) = - \frac{1}{\epsilon(x) + \delta \tilde{\epsilon}(x)} \left( \frac{1}{\mu(x) + \delta \tilde{\mu}(x)}\psi'(x) \right)'.
+\end{equation}
+%
+\begin{align}
+    (\mathcal{L}-E) \psi_{E,1} = 0,\qquad \psi_{E,1}(0) = 1,\quad \frac{1}{\mu(0)} \psi_{E,1}'(0) = 0,\\
+    (\mathcal{L}-E) \psi_{E,2} = 0,\qquad \psi_{E,2}(0) = 0,\quad \frac{1}{\mu(0)} \psi_{E,2}'(0) = 1,
+\end{align}
+Then the principal matrix solution is given by
+\begin{equation}
+    \Psi_E(x) (\equiv \Pi_E(x,x_0)) = 
+    \begin{pmatrix}
+        \psi_{E,1}(x) & \psi_{E,2}(x)\\
+        \frac{1}{\mu(x)}\psi_{E,1}'(x) & \frac{1}{\mu(x)}\psi_{E,2}'(x)
+    \end{pmatrix},
+\end{equation}
+%
+%
+Note that del psi del E satisfies the following equation ...
+\begin{equation}
+    \frac{d}{dx} \left( \frac{\partial \Psi_{E,\delta}}{\partial E}(x) \right) = J(B+EW+\delta F) \frac{\partial \Psi_{E,\delta}}{\partial E}(x) + JW \Psi_{E,\delta}, \qquad \frac{\partial \Psi_{E,\delta}}{\partial E}(0) = 0,
+\end{equation}
+and a similar result also holds for the partial derivative with respect to $\delta$. Using a standard results about the method of variation of constants (see, e.g. \cite[Proposition~1.2.2]{Brown2013}) we then obtain
+\begin{align}
+    \frac{\partial \Psi_{E,\delta}}{\partial E}(x) &= \Psi_{E,\delta}(x) \int_0^x \Psi_{E,\delta}^{-1}(t) J W(t) \Psi_{E,\delta}(t) \, dt,\\
+    \frac{\partial \Psi_{E,\delta}}{\partial \delta}(x) &= \Psi_{E,\delta}(x) \int_0^x \Psi_{E,\delta}^{-1}(t) J F(t) \Psi_{E,\delta}(t) \, dt.
+\end{align}
+Repeating the above for second order derivatives yields
+\begin{align}
+    \frac{\partial^2 \Psi_{E,\delta}}{\partial E^2}(x) &= 2 \Psi_{E, \delta}(x) \int_0^x \Psi_{E,\delta}^{-1}(t) J W(t) \frac{\partial \Psi_{E, \delta}}{\partial E}(t) \, dt,\\
+    \frac{\partial^2 \Psi_{E,\delta}}{\partial \delta^2}(x) &= 2 \Psi_{E, \delta}(x) \int_0^x \Psi_{E,\delta}^{-1}(t) J F(t) \frac{\partial \Psi_{E, \delta}}{\partial \delta}(t) \, dt,\\
+    \frac{\partial^2 \Psi_{E,\delta}}{\partial E \partial \delta}(x) &= \Psi_{E, \delta}(x) \int_0^x \Psi_{E,\delta}^{-1}(t) J \left(W(t) \frac{\partial \Psi_{E, \delta}}{\partial \delta}(t) + F(t) \frac{\partial \Psi_{E,\delta}}{\partial E}(t) \right) dt.
+\end{align}
+For ease of notation, we introduce 
+\begin{align*}
+    \begin{dcases}
+    Q_1(x) = \Psi_{E^*,0}^{-1}(x) J W(x) \Psi_{E^*,0}(x),\\
+    Q_2(x) = \Psi_{E^*,0}^{-1}(x) J F(x) \Psi_{E^*,0}(x),\\
+    \end{dcases}
+\end{align*}
+%
+%
+%
+%
+\begin{equation*}
+    u = \begin{pmatrix}
+        \psi_{E^*,1,0}(x)\\
+        \frac{1}{\mu (0)} \psi_{E^*,1,0}' (x)
+    \end{pmatrix}, \quad v = \begin{pmatrix}
+        \psi_{E^*,2,0}(x)\\
+        \frac{1}{\mu (0)} \psi_{E^*,2,0}' (x)
+    \end{pmatrix}
+\end{equation*}
+%
+%
+%
+%
+\begin{equation*}
+    Q_1 = \begin{pmatrix}
+        -v^T W u & - v^T W v\\
+        u^T W u & u^T E v
+    \end{pmatrix},
+    \quad Q_2 = \begin{pmatrix}
+        -v^T F u & -v^T F v\\
+        u^T F u & u^T F v
+    \end{pmatrix}.
+\end{equation*}

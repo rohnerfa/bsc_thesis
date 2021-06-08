@@ -1,0 +1,257 @@
+\section{The Scattering Resonance Problem (SRP)}
+%
+Follow the approach of Heider paper \cite{Heider2008}
+%
+In this chapter, we study the scattering loss from a photonic crystal (PC) due to a one-dimensional cavity. We consider a class of one-dimensional wave equations:
+ \begin{equation}\label{wave_eq_class}
+    \mu_m(x) \, \partial_t^2 \psi(x,t) = \partial_x \left(\frac{1}{\epsilon_m(x)} \, \partial_x \psi(x,t)\right).
+\end{equation}
+We assume the magnetic permeability $\mu(x)$ and electric permittivity $\epsilon(x)$ are strictly positive, variable in some compact set contained in the interval $(a,b)$ and constant outside of it. Furthermore, we assume without loss of generality that $\mu(x) = \epsilon(x) = 1$ in $\mathbb{R}\setminus (a,b)$. The region where $\mu$ and $\epsilon$ vary in $x$ is called the cavity.\\ \vspace{5mm}
+\includegraphics{images/temp pic 1.PNG}
+The wave equations in \eqref{wave_eq_class} have coefficients which are real and constant in time. Therefore they model a system that conserves energy and thus by cavity loss we mean scattering loss, i.e. loss due to leakage in the cavity as opposed to loss due to material absorption.\\
+
+Controlled by the so called scattering resonances associated with the cavity.
+
+
+\begin{defn}
+    The scattering resonance problem (SRP) is given by:\\
+    Seek $u(x;\omega_0)$ a non-trivial solution to the system
+\begin{equation}\label{SRP}
+    \begin{dcases*}
+        \partial_x((1/\epsilon_m)\, \partial_x u_0) + \omega_{0}^2 \, \mu_m \, u_0 = 0 &
+          in $(a,b)$,\\
+        (1/\epsilon_m) \, \partial_x u_0 + i \, \omega_0 \ u_0 = 0 &
+          at $a$,\\
+        (1/\epsilon_m) \, \partial_x u_0 - i \, \omega_0 \ u_0 = 0 &
+          at $b$,\\  
+        \epsilon_m \, \mu_m \, \int_{a}^{b} \lvert u_0 \rvert^2 \dd{x} = 1.
+    \end{dcases*}
+\end{equation}
+    We call $\omega_0$ the scattering resonance and $u_0$ the corresponding scattering mode.\\
+    In particular, the scattering resonances are solutions to the eigenvalue equation satisfied by time-harmonic solutions of \eqref{wave_eq_class} subject to outgoing radiation conditions.
+\end{defn}
+\begin{rem}
+    at jump discontinuity interpret via flux continuity equation:
+    $1/\epsilon(\xi^+) \partial_x u(\xi^+) = 1/\epsilon(\xi^-) \partial_x u(\xi^)$
+    where $F(\xi^{\pm}) = lim \lim_{\delta \downarrow 0} F(\xi \pm \delta)$
+\end{rem}
+
+
+%
+%%%
+
+
+%
+It can be shown that $\omega_0 \in \{ z \in \mathbb{C} : \operatorname{Im}(z) <0\}$
+%
+
+see e.g. Tang Zworski: solution of \eqref{wave_eq_class} for arbitrary initial condition admits scattering resonance expansion;in particular
+\[\left \lVert u(x,t) - \sum_{\{k_m: \operatorname{Im}(k_m) \leq -A \}} c_m e^{-i k_m t} \, u(x: k_m)  \right \rVert_{L^2(K)} + \mathcal{O}(e^{-A(1+\epsilon) t}), \qquad t \leq \tau.\]
+ 
+hence cavity loss is controlled by resonance $\omega_*$ with largest imaginary part, decay rate/mode lifetime determined by 1/im(k*) 
+\section{Sensitivity Analysis }
+
+ introduce optimization problems:
+ in particular look at class of optimization problem of SRT with piecewise constant mu and epsilon =1
+ motivated by periodic structures (c.f. chapter ?) rest of 1.1 in heider paper
+ 
+ 
+ direction of steepest ascend is in direction of gradient (or projected if we constrain the problem, e.g. fix are or sth)
+ 
+ actually calculate the gradients w.r.t. design parameters (sensitivity analysis) for general structures\\
+ 
+\newpage 
+\subsection{Sensitivity Analysis for general structures}
+\subsubsection*{Computation of $\var{\omega_0}/\var{\mu}$}
+\vspace{-3.5mm}
+We fix $\epsilon_m(x)$ and perturb $\mu_m$ by a small amount:
+\begin{equation*}
+    \mu_m(x) 	\longrightarrow \mu_m(x) + \var{ \mu(x)}.
+\end{equation*}
+Next, we expand the scattering resonance for the perturbed structure $\mu_m + \var{\mu}$ about the scattering resonance of the unperturbed structure $\mu_m$. For ease of notation we omit writing the dependence of $\omega$ on $\epsilon_m$.
+\begin{align}\label{perturbation_mu}
+\begin{split}
+    \mu(x) &= \mu_m(x) + \var{\mu(x)}\\
+    u(x;\mu_m) &= u_0(x) + \var{u(x)}\\
+    \omega &= \omega_0(\mu_m) + \var{\omega}
+\end{split}
+\end{align}
+Plugging \eqref{perturbation_mu} into \eqref{SRP} yields:
+\begin{align}
+&\begin{dcases*}
+\partial_x ((1/\epsilon_m) \, \partial_x (u_0(x) + \var{u})) + (\omega_0 + \var{\omega})^2(\mu_m + \var{\mu})(u_0(x) + \var{u}) = 0 &
+  in $(a,b)$,\\
+(1/\epsilon_m) \, \partial_x (u_0 + \var{u}) + i \, (\omega_0 + \var{\omega})(u_0 + \var{u} u) = 0 &
+  at $a$,\\
+(1/\epsilon_m) \, \partial_x (u_0 + \var{u}) - i \, (\omega_0 + \var{\omega})(u_0 + \var{u}) = 0 &
+  at $b$.
+\end{dcases*}
+\intertext{By using \eqref{SRP} and only keeping linear terms in the increments we arrive at the system:}
+&\begin{dcases*}\label{perturbed_system_linear_mu}
+\partial_x ((1/\epsilon_m) \, \partial_x \var{u}) + \omega_0^2 \, \mu_m \var{u}  = -\omega_0^2 \var{\mu} u_0 - 2 \, \omega_0 \var{\omega} \mu_m \, u_0 &
+  in $(a,b)$,\\
+(1/\epsilon_m \, \partial_x + i \, \omega_0)\var{u} = - i \var{\omega} u_0  &
+  at $a$,\\
+(1/\epsilon_m \, \partial_x - i \, \omega_0)\var{u} = + i \var{\omega} u_0 &
+  at $b$.
+\end{dcases*}
+\end{align}
+To find an expression for $\var{\omega}$ we derive the compatibility equation for the system \eqref{perturbed_system_linear_mu}. To this end we multiply by $u_0$ and integrate over $(a,b)$.
+%
+%
+%explain the other steps as well!
+%
+%
+
+find for the LHS by integrating by parts and using \eqref{SRP}
+now use boundary cond for $u_0$ and $\var{u}$
+\begin{align*}
+    \text{LHS} &= \int_a^b u_0 \, \partial_x ((1/\epsilon_m) \, \partial_x \var{u})\dd{x} + \int_a^b u_0 \, \omega_0^2 \, \mu_m \var{u} =\\
+    &= \Big [  u_0 \, (1/\epsilon_m) \, \partial_x \var{u} \Big ]_a^b - \int_a^b (\partial_x u_0) (1/\epsilon_m)\, \partial_x \var{u} \dd{x} - \int_a^b \var{u} \, \partial_x((1/\epsilon_m) \, \partial_x u_0) \dd{x} \\
+    &= \left[ u_0 \,  (1/\epsilon_m) \, \partial_x \var{u} \right]_a^b - \left[ \partial_x u_0 \, (1/\epsilon_m) \var{u} \right]_a^b \\
+    &= u_0(b) (i \var{\omega} u_0(b) + i\, \omega_0 \var{u(b)}) - u_0(a) (-i\var{\omega} u_0(a) - i\, \omega_0 \var{u(a)})\\
+    &\phantom{{}=} - \var{u} \, (i \, \omega_0 \, u_0(b)) + \var{u} \, (-i \, \omega_0 \, u_0(a))\\
+    &= i \var{\omega} (u_0^2(b) + u_0^2(a))
+\end{align*}
+The RHS reads
+\begin{align*}
+    \text{RHS} = -\int_a^b \omega_0^2 \var{\mu} u_0^2 \dd{x} - \int_a^b 2 \var{\omega} \mu_m u_0^2 \dd {x}
+\end{align*}
+Combining both sides yields
+\begin{equation}
+    \var{\omega} = \int_a^b \left[ \frac{-\omega_0^2 u_0^2}{2 \, \omega_0 \int_a^b u_0^2 \, \mu_m \dd{x} + i \left[u_0(b)^2 + u_0(a)^2\right]} \right] \var{\mu} \dd{x},
+\end{equation}
+and thus 
+\begin{equation}
+    \frac{\var{\omega}}{\var{\mu}} (\omega_0) = \frac{-\omega_0^2 u_0^2}{2 \, \omega_0 \int_a^b u_0^2 \, \mu_m \dd{x} + i \left[u_0(b)^2 + u_0(a)^2\right]}.
+\end{equation}
+%
+%
+%
+%
+\subsubsection*{Computation of $\var{\omega_0}/\var{(1/\epsilon)}$}
+\vspace{-3.5mm}
+We fix $\mu_m(x)$ and perturb $\frac{1}{\epsilon_m}$ by a small amount:
+\begin{equation*}
+    \gamma_m(x) \coloneqq \frac{1}{\epsilon_m(x)} \longrightarrow \gamma_m(x) + \var{\gamma}(x).
+\end{equation*}
+Next, we expand the scattering resonance for the perturbed structure $\gamma_m + \var{\gamma}$ about the scattering resonance of the unperturbed structure $\gamma_m$. For ease of notation we omit writing the dependence of $\omega$ on $\mu_m$.
+\begin{align}\label{perturbation_gamma}
+\begin{split}
+    \gamma(x) &= \gamma_m(x) + \var{\gamma(x)}\\
+    u(x;\gamma_m) &= u_0(x) + \var{u(x)}\\
+    \omega &= \omega_0(\gamma_m) + \var{\omega}
+\end{split}
+\end{align}
+Plugging \eqref{perturbation_gamma} into \eqref{SRP} yields:
+\begin{align}\label{eq:3}
+&\begin{dcases*}\nonumber
+\partial_x ((\gamma_m + \var{\gamma}) \, \partial_x (u_0(x) + \var{u})) + (\omega_0 + \var{\omega})^2\, \mu_m \, (u_0(x) + \var{u}) = 0 &
+  in $(a,b)$,\\
+(\gamma_m + \var{\gamma}) \, \partial_x (u_0 + \var{u}) + i \, (\omega_0 + \var{\omega})(u_0 + \var{u}) = 0 &
+  at $a$,\\
+(\gamma_m + \var{\gamma}) \, \partial_x (u_0 + \var{u}) - i \, (\omega_0 + \var{\omega})(u_0 + \var{u}) = 0 &
+  at $b$.
+\end{dcases*}
+\intertext{By using \eqref{SRP} and only keeping linear terms in the increments $\var{\gamma}, \var{u}$ and $\var{\omega}$ we arrive at the system:}
+&\begin{dcases*}
+\partial_x (\gamma_m \, \partial_x \var{u}) + \omega_0^2 \, \mu_m \var{u}  = -\partial_x(\var{\gamma} \, \partial_x u_0) - 2 \, \omega_0 \var{\omega} \mu_m \, u_0 &
+  in $(a,b)$,\\
+(\gamma_m \, \partial_x + i \, \omega_0) \var{u} = - i \var{\omega} u_0 - \var{\gamma} \, \partial_x u_0 &
+  at $a$,\\
+(\gamma_m \, \partial_x - i \, \omega_0)\var{u} = + i \var{\omega} u_0 -\var{\gamma} \, \partial_x u_0 &
+  at $b$.
+\end{dcases*}
+\end{align}
+Then, we multiply the equation in \eqref{eq:3} by $u_0$ and integrate over $(a,b)$.\\
+For the LHS, we find by integrating by parts and using \eqref{SRP} for the second term:
+\begin{align*}
+    &\int_a^b u_0 \, \partial_x (\gamma_m \, \partial_x \var{u}) \dd{x} + \int_a^b u_0 \, \omega_0^2 \, \mu_m \var{u} \dd{x} \\
+    =&\left[ u_0 \, \gamma_m \, \partial_x \var{u} \vphantom{\frac{a}{b}}\right]_a^b - \int_a^b (\partial_x u_0) \gamma_m\, \partial_x \var{u} \dd{x} - \int_a^b \var{u} \, \partial_x(\gamma_m \, \partial_x u_0) \dd{x} \\
+    =&\left[ u_0 \,  \gamma_m \, \partial_x \var{u} \vphantom{\frac{a}{b}}\right]_a^b - \left[\gamma_m \,\var{u} \, \partial_x u_0 \vphantom{\frac{a}{b}} \right]_a^b\\
+    \intertext{Finally, we use boundary condition for $u_0$ and $\var{u}$ as well as $\var{\gamma(a)} = \var{\gamma(b)} = 0$:}
+    =& \, u_0(b) (- \var{\gamma} \, \partial_x u_0(b) + i \var{\omega} u_0(b) + i\, \omega_0 \var{u(b)})
+    - u_0(a) (-\var{\gamma} \, \partial_x u_0(a) -i\var{\omega} u_0(a) - i\, \omega_0 \var{u(a)})\\
+    &- \var{u} \, (i \, \omega_0 \, u_0(b)) + \var{u} \, (-i \, \omega_0 \, u_0(a))\\
+    =&\,  i \var{\omega} (u_0^2(b) + u_0^2(a)).
+\end{align*}
+For the RHS, we obtain by integration by parts:
+\begin{align*}
+    -\int_a^b u_0 \, \partial_x(\var{\gamma} \, \partial_x u_0)\dd{x} - 2\, \omega_0 \var{\omega}\int_a^b u_0^2 \, \mu_m \dd{x} = \cancel{\left[-u_0 \var{\gamma} \partial_x u_0 \vphantom{\frac{a}{b}} \right]_a^b} + \int_a^b (\partial_x u_0)^2 \var{\gamma} \dd{x} - 2\, \omega_0 \var{\omega}\int_a^b u_0^2 \, \mu_m \dd{x}.
+\end{align*}
+Combining both sides yields:
+\begin{equation*}
+    \var{\omega}= \int_a^b \left[\frac{(\partial_x u_0)^2}{2 \, \omega_0 \int_a^b u_0^2 \, \mu_m \dd{x} + i \left[u_0(b)^2 + u_0(a)^2\right]} \right] \var{\gamma} \dd{x},
+\end{equation*}
+and thus we finally arrive at
+\begin{equation}
+    \frac{\var{\omega}}{\var{\gamma}}(\gamma_m) = \frac{(\partial_x u_0)^2}{2 \, \omega_0 \int_a^b u_0^2 \, \mu_m \dd{x} + i \left[u_0(b)^2 + u_0(a)^2\right]}.
+\end{equation}
+
+\subsection{Sensitivity Analysis for the class $\Sigma_N$}
+We now focus our attention to a specific class of structures $(\mu(x), \epsilon(x))$, namely the class of piecewise constant structures with at most $N$ jump discontinuities $\Sigma_N$. 
+%
+%
+\begin{defn}
+    We say that the pair $(\mu(x), \epsilon(x))$ defines a picewise constant structure with at most $N$ jump discontinuities if there exist points $a = x_1 < x_2 < \cdots < x_N = b$ such that $\mu(x)$ and $\epsilon(x)$ are constant on each interval $(x_j-1,x_j)$, for $j = 2,\dots,N$. In particular we have
+    \begin{align}
+        \mu(x) = \begin{cases}
+        \mu_1 = 1 & \text{for } x < x_1 = a\\
+        \mu_j & \text{for } x_{j-1} < x < x_j, \, j=2,\dots,N\\
+        \mu_{N+1} = 1 & \text{for } b = x_N < x
+        \end{cases},\\
+        \epsilon(x) = \begin{cases}
+        \epsilon_1 = 1 & \text{for } x < x_1 = a\\
+        \epsilon_j & \text{for } x_{j-1} < x < x_j, \, j=2,\dots,N\\
+        \epsilon_{N+1} = 1 & \text{for } b = x_N < x
+        \end{cases}.
+    \end{align}
+    We denote by $\Sigma_N$ the set of all such structures. Each element $(\mu(x), \epsilon(x)) \in \Sigma_N$ is determined by $3N-4$ parameters; namely the $N-2$ interior jump points $x_2,\dots,x_{N-1}$ as well as the $2(N-1)$ values $\mu_j$ and $\epsilon_j$ on the intervals $(x_{j-1},x_j)$ for $j=2,\dots,N$.\\
+    For ease of notation we write
+    \begin{align*}
+        \mathfrak{r} = (x_2,\dots,x_N)\\
+        \mathfrak{m} = (\mu_2,\dots,\mu_N)\\
+        \mathfrak{e} = (\epsilon_2,\dots,\epsilon_N).
+    \end{align*}
+\end{defn}
+%
+%
+%
+\begin{prop}\label{proposition_piecewise_const}
+    Let $(\mathfrak{r}, \mathfrak{m}, \mathfrak{e}) \in \Sigma_N$ be a piecewise constant structure as above. Then we have the following expressions for the gradients of a scattering resonance $\omega(\mathfrak{r}, \mathfrak{m}, \mathfrak{e})$ with respect to the design parameters:
+    \begin{enumerate}[label=(\arabic*), font=\normalfont]
+        \item The variations in the scattering resonance $\omega$ with respect to the jump locations $\mathfrak{r} = (x_2,\dots,x_N)$ for $j=2,\dots,N$ are given by
+        \begin{equation}
+            \frac{\partial \omega(\mathfrak{r}, \mathfrak{m}, \mathfrak{e})}{\partial x_j} = \frac{(1/\epsilon_j - 1/\epsilon_{j+1})\, \partial_x u(x_j^{-})\, \partial_x u(x_j^+) + (\mu_{j+1}-\mu_j) \; \omega^2(\mathfrak{r}, \mathfrak{m}, \mathfrak{e})\, u^2(x_j,\mathfrak{r}, \mathfrak{m}, \mathfrak{e})}{i\,(u^2(a,\mathfrak{r}, \mathfrak{m}, \mathfrak{e}) + u^2(b,\mathfrak{r}, \mathfrak{m}, \mathfrak{e})) + 2 \, \omega(\mathfrak{r}, \mathfrak{m}, \mathfrak{e}) \int_a^b \mu(x,\mathfrak{r}, \mathfrak{m}, \mathfrak{e}) \, u^2(x,\mathfrak{r}, \mathfrak{m}, \mathfrak{e}) \dd{x}}.
+        \end{equation}
+        \item The variations in $\omega$ with respect to $\mathfrak{e} = (\epsilon_2,\dots,\epsilon_N)$ for $j=2,\dots,N$ are given by
+        \begin{equation}
+            \frac{\partial \omega(\mathfrak{r}, \mathfrak{m}, \mathfrak{e})}{\partial (1/\epsilon_j)} = \frac{\int_{x_{j-1}}^{x_j}(\partial_x u(x',\mathfrak{r}, \mathfrak{m}, \mathfrak{e}))^2 \dd{x'}}{i\,(u^2(a,\mathfrak{r}, \mathfrak{m}, \mathfrak{e}) + u^2(b,\mathfrak{r}, \mathfrak{m}, \mathfrak{e})) + 2 \, \omega(\mathfrak{r}, \mathfrak{m}, \mathfrak{e}) \int_a^b \mu(x,\mathfrak{r}, \mathfrak{m}, \mathfrak{e}) \, u^2(x,\mathfrak{r}, \mathfrak{m}, \mathfrak{e})   \dd{x} }.
+        \end{equation}
+        \item The variations in $\omega$ with respect to $\mathfrak{e} = (\epsilon_2,\dots,\epsilon_N)$ are given by
+        \begin{equation}
+            \frac{\partial \omega(\mathfrak{r}, \mathfrak{m}, \mathfrak{e})}{\partial\mu_j} = \frac{- \omega^2(\mathfrak{r}, \mathfrak{m}, \mathfrak{e})\int_{x_{j-1}}^{x_j}u^2(x',\mathfrak{r}, \mathfrak{m}, \mathfrak{e}) \dd{x'}}{i\,(u^2(a,\mathfrak{r}, \mathfrak{m}, \mathfrak{e}) + u^2(b,\mathfrak{r}, \mathfrak{m}, \mathfrak{e})) + 2 \, \omega(\mathfrak{r}, \mathfrak{m}, \mathfrak{e}) \int_a^b \mu(x,\mathfrak{r}, \mathfrak{m}, \mathfrak{e}) \, u^2(x,\mathfrak{r}, \mathfrak{m}, \mathfrak{e})   \dd{x} }.
+        \end{equation}
+    \end{enumerate}
+\end{prop}
+The proof is an application of the results from the previous subsection applied to specially chosen perturbations. For more details see Proposition 1 in \cite{Heider2008}.
+%
+%
+\subsection{Gradient Ascent Algorithm}
+
+
+\begin{algorithm}[H]
+\SetAlgoNoLine
+\DontPrintSemicolon
+\KwIn{initial structure $(\mathfrak{r}, \mathfrak{m}, \mathfrak{e})_0$ and corresponding resonance $\omega_0$ }
+\KwOut{optimized structure $(\mathfrak{r}, \mathfrak{m}, \mathfrak{e})_\text{opt}$ and corresponding resonance $\omega_\text{opt}$}
+
+$\omega_{\text{opt}} \leftarrow \omega_0$\;
+$(\mathfrak{r}, \mathfrak{m}, \mathfrak{e})_\text{opt} \leftarrow (\mathfrak{r}, \mathfrak{m}, \mathfrak{e})_0$\;
+\For{count $= 1, \dots, M$}{
+    $\nabla \omega_{\text{update}} \leftarrow \grad{ \omega_{\text{old}}}$, where $\grad{ \omega_{\text{old}}}$ is computed using Prop. \eqref{proposition_piecewise_const} for $\omega_\text{old}$\;
+   $(\mathfrak{r}, \mathfrak{m}, \mathfrak{e})_\text{opt} \leftarrow (\mathfrak{r}, \mathfrak{m}, \mathfrak{e})_\text{opt} + \epsilon \cdot (\grad{\omega_\text{opt}}, \Im(\grad{\omega_\text{opt}}))$\;
+   $\omega_{old} \leftarrow \omega_\text{opt}$, where $\omega_\text{opt}$ is the resonance for the updated structure $(\mathfrak{r}, \mathfrak{m}, \mathfrak{e})_\text{opt}$\:
+ }
+ \caption{Gradient Ascent}
+\end{algorithm}

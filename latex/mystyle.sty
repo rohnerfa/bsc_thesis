@@ -1,0 +1,59 @@
+\NeedsTeXFormat{LaTeX2e}
+\ProvidesPackage{mystyle}
+
+% AMS packages for specialized mathematical environments and fonts.
+\RequirePackage{
+,amsmath
+,mathtools
+,amsfonts
+,amsthm
+,amssymb
+,enumitem
+,graphicx
+,centernot
+,bm
+,pdfpages
+,IEEEtrantools
+}
+\RequirePackage[normalem]{ulem}
+\RequirePackage[ruled, vlined]{algorithm2e}
+\RequirePackage{cancel}
+% More packages for various purposes
+\RequirePackage{
+,nicefrac % Formats in-line fractions to look nicer (such as 1/3).
+,pgf,tikz % Allows pictures to be defined and drawn in LaTeX.
+,geometry % For defining page geometry, such as margins, header, etc.
+,graphicx % Allows images to be included (using \includegraphics).
+,pdfpages % Allows entire PDF files to be inserted into the final document.
+%,refstyle % Combined with refstyle.def, defines specialized label and reference commands.
+,hyperref % Makes references clickable.
+,cancel
+,biblatex
+,enumitem
+,physics
+,xparse
+}
+
+\usetikzlibrary{arrows.meta}
+
+
+
+
+% Set the paper size and margins. Right margin set larger for marginal notes in the markup.
+\geometry{a4paper,margin=1in,left=1in}
+
+%theorem setup
+\theoremstyle{definition}
+\newtheorem{defn}{Definition}
+
+\theoremstyle{remark}
+\newtheorem*{rem}{Remark}
+
+\theoremstyle{plain}
+\newtheorem{thm}[defn]{Theorem}
+\newtheorem{cor}[defn]{Corollary}
+\newtheorem{prop}[defn]{Proposition}
+\newtheorem{lemma}[defn]{Lemma}
+
+\setlength{\parskip}{1em}
+\endinput

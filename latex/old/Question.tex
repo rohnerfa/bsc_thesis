@@ -1,0 +1,112 @@
+\section{Question}
+\subsection*{Setup}
+\begin{equation}\label{eq:1}
+\begin{dcases*}
+\partial_x((1/\epsilon_m)\partial_x u_0) + \omega_{0}^2 \, \mu_m \, u_0 = 0 &
+  in $(a,b)$,\\
+(1/\epsilon_m) \, \partial_x u_0 + i \, \omega_0 \ u_0 = 0 &
+  at $a$,\\
+(1/\epsilon_m) \, \partial_x u_0 - i \, \omega_0 \ u_0 = 0 &
+  at $b$,\\  
+\epsilon_m \, \mu_m \, \int_{a}^{b} \lvert u_0 \rvert^2 dx = 1.
+\end{dcases*}
+\end{equation}\\
+\subsection*{Method 1:}
+We calculate $\frac{\delta \omega}{\delta (1/\epsilon)}$ instead of $\frac{\delta \omega}{\delta \epsilon}$. Is there something similar to a "chain rule" to obtain $\frac{\delta \omega}{\delta \epsilon}$ from this?\\
+We fix $\mu_m(x)$ and perturb $\frac{1}{\epsilon_m}$ by a small amount:
+\begin{equation*}
+    \gamma_m(x) \coloneqq \frac{1}{\epsilon_m(x)} \longrightarrow \gamma_m(x) + \delta \gamma(x).
+\end{equation*}
+Next, we expand the scattering resonance for the perturbed structure $\gamma_m + \delta \gamma$ about the scattering resonance of the unperturbed structure $\gamma_m$. For ease of notation we omit writing the dependence of $\omega$ on $\mu_m$.
+\begin{align}\label{eq:2}
+\begin{split}
+    \gamma(x) &= \gamma_m(x) + \delta \gamma(x)\\
+    u(x;\gamma_m) &= u_0(x) + \delta u(x)\\
+    \omega &= \omega_0(\gamma_m) + \delta \omega
+\end{split}
+\end{align}
+Plugging \eqref{eq:2} into \eqref{eq:1} yields:
+\begin{align}\label{eq:3}
+&\begin{dcases*}\nonumber
+\partial_x ((\gamma_m + \delta \gamma) \, \partial_x (u_0(x) + \delta u)) + (\omega_0 + \delta \omega)^2\, \mu_m \, (u_0(x) + \delta u) = 0 &
+  in $(a,b)$,\\
+(\gamma_m + \delta \gamma) \, \partial_x (u_0 + \delta u) + i \, (\omega_0 + \delta \omega)(u_0 + \delta u) = 0 &
+  at $a$,\\
+(\gamma_m + \delta \gamma) \, \partial_x (u_0 + \delta u) - i \, (\omega_0 + \delta \omega)(u_0 + \delta u) = 0 &
+  at $b$.
+\end{dcases*}
+\intertext{By using \eqref{eq:1} and only keeping linear terms in the increments $\delta \gamma, \, \delta u$ and $\delta \omega$ we arrive at the system:}
+&\begin{dcases*}
+\partial_x (\gamma_m \, \partial_x \delta u) + \omega_0^2 \, \mu_m \, \delta u  = -\partial_x(\delta \gamma \, \partial_x u_0) - 2 \, \omega_0 \, \delta \omega \, \mu_m \, u_0 &
+  in $(a,b)$,\\
+(\gamma_m \, \partial_x + i \, \omega_0)\, \delta u = - i \, \delta \omega \, u_0 - \delta \gamma \, \partial_x u_0 &
+  at $a$,\\
+(\gamma_m \, \partial_x - i \, \omega_0)\, \delta u = + i \, \delta \omega \, u_0 -\delta \gamma \, \partial_x u_0 &
+  at $b$.
+\end{dcases*}
+\end{align}
+Then, we multiply the equation in \eqref{eq:3} by $u_0$ and integrate over $(a,b)$.\\
+For the LHS, we find by integrating by parts and using \eqref{eq:1} for the second term:
+\begin{align*}
+    &\int_a^b u_0 \, \partial_x (\gamma_m \, \partial_x \delta u)\, dx + \int_a^b u_0 \, \omega_0^2 \, \mu_m \, \delta u \, dx \\
+    =&\left[ u_0 \, \gamma_m \, \partial_x \delta u \vphantom{\frac{a}{b}}\right]_a^b - \int_a^b (\partial_x u_0) \gamma_m\, \partial_x \delta u \, dx - \int_a^b \delta u \, \partial_x(\gamma_m \, \partial_x u_0) \, dx \\
+    =&\left[ u_0 \,  \gamma_m \, \partial_x \delta u \vphantom{\frac{a}{b}}\right]_a^b - \left[\gamma_m \,\delta u \, \partial_x u_0 \vphantom{\frac{a}{b}} \right]_a^b\\
+    \intertext{Finally, we use boundary condition for $u_0$ and $\delta u$ as well as $\delta \gamma(a) = \delta \gamma(b) = 0$:}
+    =& \, u_0(b) (- \delta \gamma \, \partial_x u_0(b) + i \, \delta \omega \, u_0(b) + i\, \omega_0 \, \delta u(b))
+    - u_0(a) (-\delta \gamma \, \partial_x u_0(a) -i\, \delta \omega \, u_0(a) - i\, \omega_0 \, \delta u(a))\\
+    &- \delta u \, (i \, \omega_0 \, u_0(b)) + \delta u \, (-i \, \omega_0 \, u_0(a))\\
+    =&\,  i \, \delta \omega \, (u_0^2(b) + u_0^2(a)).
+\end{align*}
+For the RHS, we obtain by integration by parts:
+\begin{align*}
+    -\int_a^b u_0 \, \partial_x(\delta \gamma \, \partial_x u_0)\, dx - 2\, \omega_0 \, \delta \omega \int_a^b u_0^2 \, \mu_m \, dx = \cancel{\left[-u_0 \, \delta \gamma \, \partial_x u_0 \vphantom{\frac{a}{b}} \right]_a^b} + \int_a^b (\partial_x u_0)^2 \, \delta \gamma \, dx - 2\, \omega_0 \, \delta \omega \int_a^b u_0^2 \, \mu_m \, dx.
+\end{align*}
+Combining both sides yields:
+\begin{equation*}
+    \delta \omega = \int_a^b \left[\frac{(\partial_x u_0)^2}{2 \, \omega_0 \int_a^b u_0^2 \, \mu_m \, dx + i \left[u_0(b)^2 + u_0(a)^2\right]} \right] \delta \gamma \, dx,
+\end{equation*}
+and thus we finally arrive at
+\begin{equation}
+    \frac{\delta \omega}{\delta \gamma}(\gamma_m) = \frac{(\partial_x u_0)^2}{2 \, \omega_0 \int_a^b u_0^2 \, \mu_m \, dx + i \left[u_0(b)^2 + u_0(a)^2\right]}.
+\end{equation}
+\newpage
+%\subsection*{Method 2:}
+We write $\frac{1}{\epsilon_m + \delta \epsilon} = \frac{1}{\epsilon} - \frac{\delta \epsilon}{\epsilon_m(\epsilon_m + \delta \epsilon)}$ and follow a similar approach to Method 1.\\
+Plugging into \eqref{eq:1} yields:
+\begin{align}\label{eq:4}
+&\begin{dcases*}\nonumber
+\partial_x \left( \left(\frac{1}{\epsilon_m} - \frac{\delta \epsilon}{\epsilon_m\, (\epsilon_m + \delta \epsilon)}\right) \partial_x (u_0(x) + \delta u)\right) + (\omega_0 + \delta \omega)^2\, \mu_m \, (u_0(x) + \delta u) = 0 &
+  in $(a,b)$,\\
+\left(\frac{1}{\epsilon_m} - \frac{\delta \epsilon}{\epsilon_m\, (\epsilon_m + \delta \epsilon)}\right) \partial_x (u_0 + \delta u) + i \, (\omega_0 + \delta \omega)(u_0 + \delta u) = 0 &
+  at $a$,\\
+\left(\frac{1}{\epsilon_m} - \frac{\delta \epsilon}{\epsilon_m\, (\epsilon_m + \delta \epsilon)}\right) \partial_x (u_0 + \delta u) - i \, (\omega_0 + \delta \omega)(u_0 + \delta u) = 0 &
+  at $b$.
+\end{dcases*}
+\intertext{By using \eqref{eq:1} and only keeping linear terms in the increments $\delta \gamma, \, \delta u$ and $\delta \omega$ we arrive at the system:}
+&\begin{dcases*}
+\partial_x \left(\frac{1}{\epsilon_m} \partial_x \delta u\right) + \omega_0^2 \, \mu_m \, \delta u  = +\partial_x \left(\frac{\delta \epsilon}{\epsilon_m \, (\epsilon_m + \delta \epsilon)}\, \partial_x u_0\right) - 2 \, \omega_0 \, \delta \omega \, \mu_m \, u_0 &
+  in $(a,b)$,\\
+\left(\frac{1}{\epsilon_m} \, \partial_x + i \, \omega_0\right) \delta u = - i \, \delta \omega \, u_0 + \frac{\delta \epsilon}{\epsilon_m \, (\epsilon_m + \delta \epsilon)} \, \partial_x u_0 &
+  at $a$,\\
+\left(\frac{1}{\epsilon_m} \, \partial_x - i \, \omega_0\right) \delta u = + i \, \delta \omega \, u_0 + \frac{\delta \epsilon}{\epsilon_m \, (\epsilon_m + \delta \epsilon)} \, \partial_x u_0 &
+  at $b$.
+\end{dcases*}
+\end{align}
+Analogously to Method 1, we multiply the equation in \eqref{eq:4} by $u_0$ and integrate over $(a,b)$ and use boundary conditions for $u_0$, $\delta u$ and $\delta \epsilon$.\\
+For the LHS, we find by integrating by parts and using \eqref{eq:1} for the second term:
+\begin{align*}
+    &\int_a^b u_0 \, \partial_x \left(\frac{1}{\epsilon_m} \partial_x \delta u\right) dx + \int_a^b u_0 \, \omega_0^2 \, \mu_m \, \delta u \, dx =\left[ u_0 \frac{1}{\epsilon_m} \partial_x \delta u \right]_a^b - \left[\frac{1}{\epsilon_m} \delta u \, \partial_x u_0 \right]_a^b\\
+    =& \, u_0(b) \left[i\, \omega_0 \, \delta u(b) + i \, \delta \omega \, u_0(b) + \frac{\delta \epsilon(b)}{\epsilon_m(b) \, (\epsilon_m(b) + \delta \epsilon(b))}\, \partial_x u_0(b) \right]\\
+    -& u_0(a) \left[-i\, \omega_0 \, \delta u(a) - i \, \delta \omega \, u_0(a) + \frac{\delta \epsilon(a)}{\epsilon_m(a) \, (\epsilon_m(a) + \delta \epsilon(a))}\, \partial_x u_0(a) \right]- \delta u \, (i \, \omega_0 \, u_0(b)) + \delta u \, (-i \, \omega_0 \, u_0(a))\\
+    =&\,  i \, \delta \omega \, (u_0^2(b) + u_0^2(a)).
+\end{align*}
+For the RHS, we obtain by integration by parts:
+\begin{align*}
+    &\int_a^b u_0 \, \partial_x \left(\frac{\delta \epsilon}{\epsilon_m \, (\epsilon_m + \delta \epsilon)} \, \partial_x u_0\right)\, dx - 2\, \omega_0 \, \delta \omega \int_a^b u_0^2 \, \mu_m \, dx\\
+    &= \cancel{\left[u_0 \, \frac{\delta \epsilon}{\epsilon_m \, (\epsilon_m + \delta \epsilon)}\, \partial_x u_0 \right]_a^b} + \int_a^b (\partial_x u_0)^2 \, \frac{\delta \epsilon}{\epsilon_m \, (\epsilon_m + \delta \epsilon)} \, dx - 2\, \omega_0 \, \delta \omega \int_a^b u_0^2 \, \mu_m \, dx.
+\end{align*}
+Combining both sides yields:
+\begin{equation*}
+    \delta \omega = \int_a^b \left[\frac{(\partial_x u_0)^2}{2 \, \omega_0 \int_a^b u_0^2 \, \mu_m \, dx + i \left[u_0(b)^2 + u_0(a)^2\right]} \right] \frac{\delta \epsilon}{\epsilon_m \, (\epsilon_m + \delta \epsilon)} \, dx,
+\end{equation*}
+Which is not quite the expression we're seeking.
