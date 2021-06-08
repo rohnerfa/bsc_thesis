@@ -26,6 +26,22 @@ def create_u_function(structure, coefficients, omega):
         return np.piecewise(complex(z), condlist, funclist)
     return func_u
 
+def create_del_u_function(structure, coefficients, omega):
+    def func_del_u(z):
+        #jump_points include both endpoints x_1, x_N
+        jump_points = structure.r
+        N = structure.n
+        r = np.sqrt(np.multiply(structure.m,structure.e))
+        condlist = []
+        funclist = []
+        for j in range(1,N):
+            current_r = r[j]
+            current_coeff = 1j*current_r*omega*[coefficients[2*j-1], -coefficients[2*j]]
+            condlist.append(jump_points[j-1] < z and z < jump_points[j])
+            funclist.append(make_interval_function(current_coeff, omega, current_r))
+        return np.piecewise(complex(z), condlist, funclist)
+    return func_del_u
+
 def create_mu_function(structure):
     def func_mu(z):
 
@@ -52,7 +68,7 @@ def complex_quadrature(func, a, b, **kwargs):
     imag_integral = quad(imag_func, a, b, **kwargs)
     return (real_integral[0] + 1j*imag_integral[0])
 
-def compute_gradient_mu(structure, coefficients, omega):
+def compute_gradient_denominator(structure, coefficients, omega):
     jump_points = structure.r
     N = structure.n
     func_u = create_u_function(structure, coefficients, omega)
@@ -61,19 +77,47 @@ def compute_gradient_mu(structure, coefficients, omega):
     def func_u_squared_mu(z):
         return func_u(z)**2 * func_mu(z)
 
+    integral_denom = complex_quadrature(func_u_squared_mu, jump_points[0], jump_points[-1])
+    print(f'integral_denom = {integral_denom}')
+    u_a = coefficients[0]*np.exp(-1j*omega*jump_points[0])
+    u_b = coefficients[2*N-1]*np.exp(1j*omega*jump_points[N-1])
+    denom = 1j*(u_a**2 + u_b**2) + 2*omega*integral_denom
+    
+    return denom
+
+def compute_gradient_mu(structure, coefficients, omega):
+    jump_points = structure.r
+    N = structure.n
+    func_u = create_u_function(structure, coefficients, omega)
+
     def func_u_squared(z):
         return func_u(z)**2
-
-    integral_denom = complex_quadrature(func_u_squared_mu, jump_points[0], jump_points[-1])
-
-    ########################## CAREFUL func not defined at endpoints#########################
-    denom = 1j*(func_u(jump_points[0])**2 + func_u(jump_points[1]**2)) + 2*omega*integral_denom
+    
+    denom = compute_gradient_denominator(structure, coefficients, omega)
 
     gradient_mu = np.zeros(N-1, dtype=np.complex)
     for k in range(len(gradient_mu)):
         integral = complex_quadrature(func_u_squared, jump_points[k], jump_points[k+1])
-        gradient_mu[k] = -omega**2 *integral/()
-    return integral
+        gradient_mu[k] = -omega**2 *integral/denom
+
+    return gradient_mu
+
+def compute_gradient_epsilon(structure, coefficients, omega):
+    jump_points = structure.r
+    N = structure.n
+    func_del_u = create_del_u_function(structure, coefficients, omega)
+
+    def func_del_u_squared(z):
+        return func_del_u(z)**2
+
+    denom = compute_gradient_denominator(structure, coefficients, omega)
+
+    gradient_epsilon = np.zeros(N-1, dtype=np.complex)
+    for k in range(len(gradient_epsilon)):
+        integral = complex_quadrature(func_del_u_squared, jump_points[k], jump_points[k+1])
+        gradient_epsilon[k] = integral/denom
+
+    return gradient_epsilon
 
 def main():
     r = [0,1,2]
@@ -81,7 +125,7 @@ def main():
     e = [1,1,1,1]
     struc = Structure(r,m,e)
 
-    coeff = [0,1,0,0,0,0]
+    coeff = [0,1,0,1,0,0]
     omega = 1
     grad = compute_gradient_mu(struc, coeff, omega)
     print(grad)
