@@ -119,6 +119,30 @@ def compute_gradient_epsilon(structure, coefficients, omega):
 
     return gradient_epsilon
 
+def compute_gradient_jump(structure, coefficients, omega):
+    jump_points = structure.r
+    N = structure.n
+    epsilon = structure.e
+    mu = structure.m
+    r = np.sqrt(np.multiply(structure.m,structure.e))
+
+    denom = compute_gradient_denominator(structure, coefficients, omega)
+
+    gradient_jump = np.zeros(N-2, dtype=np.complex)
+    for k in range(2,N):
+        partial_u = - omega**2 *(r[k]*(coefficients[2*k-1] * np.exp(1j*r[k]*omega*jump_points[k-1])-coefficients[2*k]*np.exp(-1j*r[k]*omega*jump_points[k-1]))*
+        r[k-1]*(coefficients[2*k-3]*np.exp(1j*r[k-1]*omega*jump_points[k-1])-coefficients[2*k-2]*np.exp(-1j*r[k-1]*omega*jump_points[k-1])))
+        
+        sum1 = (1/epsilon[k-1]-1/epsilon[k]) * partial_u
+        
+        u_squared = coefficients[2*k-1]* np.exp(1j*r[k]*omega*jump_points[k-1])
+        sum2 = (mu[k]-mu[k-1])*omega**2* u_squared
+        
+        numerator = sum1 + sum2
+        gradient_jump[k] = numerator/denom 
+
+    return gradient_jump
+
 def main():
     r = [0,1,2]
     m = [1,1,1,1]
