@@ -1,5 +1,6 @@
 from numpy.lib.function_base import gradient
 from steepest_ascent import Structure
+from steepest_ascent import Structure_Gradient
 import numpy as np
 import scipy
 from scipy.integrate import quad
@@ -142,6 +143,14 @@ def compute_gradient_jump(structure, coefficients, omega):
         gradient_jump[k] = numerator/denom 
 
     return gradient_jump
+
+def compute_gradient(structure, coefficients, omega):
+    gradients = Structure_Gradient()
+    gradients.r = compute_gradient_jump(structure, coefficients, omega)
+    gradients.m = compute_gradient_mu(structure, coefficients, omega)
+    gradients.e = compute_gradient_epsilon(structure, coefficients, omega)
+
+    return gradients
 
 def main():
     r = [0,1,2]
