@@ -1,4 +1,3 @@
-from ast import Str
 import numpy as np
 from numpy.lib.function_base import gradient
 import matplotlib.pyplot as plt
