@@ -162,15 +162,7 @@ def main():
     omega = 1
     grad = compute_gradient_mu(struc, coeff, omega)
     print(grad)
-    """ x = np.linspace(0,100,200)
-    y = np.zeros(len(x))
-
-    for i in range(100):
-        y[i] = np.absolute(func_u(x[i]))
-
-    import matplotlib.pyplot as plt
-    plt.plot(x,y)
-    plt.show() """
+    
 
 if __name__ == '__main__':
     main()

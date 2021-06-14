@@ -16,8 +16,8 @@ def create_A_matrix(omega, structure):
     A[0,2] = -np.exp(-1j *r[1]*omega*x[0])
 
     A[1,0] = -np.exp(-1j *omega*x[0])
-    A[1,1] = -r[1]*1/epsilon[0]*np.exp(1j *r[1]*omega*x[0])
-    A[1,2] = r[1]*1/epsilon[0]*np.exp(-1j *r[1]*omega*x[0])
+    A[1,1] = -r[1]*1/epsilon[1]*np.exp(1j *r[1]*omega*x[0])
+    A[1,2] = r[1]*1/epsilon[1]*np.exp(-1j *r[1]*omega*x[0])
 
     if N > 2:
         for j in range(2,N):
