@@ -1,5 +1,4 @@
 import numpy as np
-from numpy.lib.function_base import gradient
 import matplotlib.pyplot as plt
 
 class Structure:
@@ -61,6 +60,7 @@ class Structure_Gradient:
 
 import compute_gradient
 import newton_method
+from generate_matrix import create_A_matrix
 
 def gradient_ascent_step(omega_opt, structure_opt, p, coefficients):
 
@@ -89,7 +89,9 @@ def gradient_ascent(omega_0, start_structure, p, eps, steps):
     return structure_opt, omega_opt
 
 
+
 def main():
+    # create initial structure like in the paper with 22 barriers and 1 barrier missing in the middle
     x = np.linspace(1- 21*(0.0324),1 + 24*0.0324 ,46)
 
     epsilon = np.ones(47)
@@ -101,10 +103,25 @@ def main():
     epsilon[23] = 1
 
     struc = Structure(x, mu, epsilon)
-    struc.plot_structure()
 
-    #print(epsilon)
-    plt.show()
+    omega_test = 60.8183630665 - 0.0163109133j
+    coefficients = np.ones(92, dtype=np.complex)
+
+    omega_new, c_new = newton_method.newton_method(struc, omega_test, coefficients, 1e-5, max_steps=50)
+   
+    # struc.plot_structure()
+    # plt.show()
+
+    # u = compute_gradient.create_u_function(struc, c_new, omega_new)
+    # steps = 50
+    # l_plot = (len(x) - 1)*steps + 1          # total length after interpolation
+    # x_plot = np.interp(np.arange(l_plot), np.arange(l_plot, step=steps), x)
+
+    # y = np.zeros(np.size(x_plot))
+    # for k in range(np.size(y)):
+    #     y[k] = np.abs(u(x_plot[k]))**2
+    # plt.plot(x_plot,y)
+    # plt.show()
 
 if __name__ == '__main__':
     main()

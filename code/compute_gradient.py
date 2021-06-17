@@ -1,8 +1,6 @@
-from numpy.lib.function_base import gradient
 from steepest_ascent import Structure
 from steepest_ascent import Structure_Gradient
 import numpy as np
-import scipy
 from scipy.integrate import quad
 
 def make_interval_function(c, omega, r_coef):
@@ -22,7 +20,7 @@ def create_u_function(structure, coefficients, omega):
         for j in range(1,N):
             current_coeff = [coefficients[2*j-1], coefficients[2*j]]
             current_r = r[j]
-            condlist.append(jump_points[j-1] < z and z < jump_points[j])
+            condlist.append(jump_points[j-1] < z and z <= jump_points[j])
             funclist.append(make_interval_function(current_coeff, omega, current_r))
         return np.piecewise(complex(z), condlist, funclist)
     return func_u

@@ -1,4 +1,3 @@
-from steepest_ascent import Structure
 import numpy as np
 
 def create_A_matrix(omega, structure):
@@ -6,9 +5,8 @@ def create_A_matrix(omega, structure):
     epsilon = structure.e
     x = structure.r
     N = structure.n
-
+    
     r = np.sqrt(np.multiply(mu,epsilon))
-
     A = np.zeros((2*N,2*N), dtype=np.cfloat)
 
     A[0,0] = np.exp(-1j *omega*x[0])
@@ -77,11 +75,11 @@ def create_A_prime_matrix(omega, structure):
 
     A_prime[2*N-2,2*N-3] = 1j*r[N-1]*x[N-1]*np.exp(1j*r[N-1]*omega*x[N-1])
     A_prime[2*N-2,2*N-2] = -1j*r[N-1]*x[N-1]*np.exp(-1j*r[N-1]*omega*x[N-1])
-    A_prime[2*N-2,2*N-1] = -1j*omega*x[N-1]*np.exp(1j*omega*x[N-1])
+    A_prime[2*N-2,2*N-1] = -1j*x[N-1]*np.exp(1j*omega*x[N-1])
 
     A_prime[2*N-1,2*N-3] = 1j*r[N-1]*x[N-1]*r[N-1]*1/epsilon[N-1]*np.exp(1j*r[N-1]*omega*x[N-1])
     A_prime[2*N-1,2*N-2] = 1j*r[N-1]*x[N-1]*r[N-1]*1/epsilon[N-1]*np.exp(-1j*r[N-1]*omega*x[N-1])
-    A_prime[2*N-1,2*N-1] = -1j*omega*x[N-1]*np.exp(1j*omega*x[N-1])
+    A_prime[2*N-1,2*N-1] = -1j*x[N-1]*np.exp(1j*omega*x[N-1])
 
     return A_prime
 
