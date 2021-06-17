@@ -64,7 +64,7 @@ from generate_matrix import create_A_matrix
 
 def gradient_ascent_step(omega_opt, structure_opt, p, coefficients):
 
-    gradients = compute_gradient(structure_opt, coefficients, omega_opt)
+    gradients = compute_gradient.compute_gradient(structure_opt, coefficients, omega_opt)
     grad_omega_opt = gradients.get_grad()
     
     scal_prod = np.vdot(grad_omega_opt,np.imag(grad_omega_opt))
@@ -78,7 +78,7 @@ def gradient_ascent_step(omega_opt, structure_opt, p, coefficients):
 
     return structure_opt, omega_approx_update
 
-def gradient_ascent(omega_0, start_structure, p, eps, steps):
+def gradient_ascent(omega_0, c_0, start_structure, p, eps, steps):
     # what is initial coefficients c_0 for newton method?
     omega_opt, coeff = newton_method(start_structure, omega_0, c_0, eps)
     structure_opt = start_structure
@@ -108,7 +108,9 @@ def main():
     coefficients = np.ones(92, dtype=np.complex)
 
     omega_new, c_new = newton_method.newton_method(struc, omega_test, coefficients, 1e-5, max_steps=50)
-   
+    
+    gradient_jump = compute_gradient.compute_gradient_jump(struc, c_new, omega_new)
+    print(gradient_jump)
     # struc.plot_structure()
     # plt.show()
 

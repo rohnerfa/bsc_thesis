@@ -35,8 +35,8 @@ def create_del_u_function(structure, coefficients, omega):
         funclist = []
         for j in range(1,N):
             current_r = r[j]
-            current_coeff = 1j*current_r*omega*[coefficients[2*j-1], -coefficients[2*j]]
-            condlist.append(jump_points[j-1] < z and z < jump_points[j])
+            current_coeff = [1j*current_r*omega*coefficients[2*j-1], -1j*current_r*omega*coefficients[2*j]]
+            condlist.append(jump_points[j-1] < z and z <= jump_points[j])
             funclist.append(make_interval_function(current_coeff, omega, current_r))
         return np.piecewise(complex(z), condlist, funclist)
     return func_del_u
@@ -76,8 +76,10 @@ def compute_gradient_denominator(structure, coefficients, omega):
     def func_u_squared_mu(z):
         return func_u(z)**2 * func_mu(z)
 
-    integral_denom = complex_quadrature(func_u_squared_mu, jump_points[0], jump_points[-1])
-    print(f'integral_denom = {integral_denom}')
+    integral_denom = 0+0j
+    for k in range(N-1):
+        integral_denom = integral_denom + complex_quadrature(func_u_squared_mu, jump_points[k], jump_points[k+1])
+
     u_a = coefficients[0]*np.exp(-1j*omega*jump_points[0])
     u_b = coefficients[2*N-1]*np.exp(1j*omega*jump_points[N-1])
     denom = 1j*(u_a**2 + u_b**2) + 2*omega*integral_denom
@@ -134,11 +136,11 @@ def compute_gradient_jump(structure, coefficients, omega):
         
         sum1 = (1/epsilon[k-1]-1/epsilon[k]) * partial_u
         
-        u_squared = coefficients[2*k-1]* np.exp(1j*r[k]*omega*jump_points[k-1])
+        u_squared = (coefficients[2*k-3]* np.exp(1j*r[k-1]*omega*jump_points[k-1]) + coefficients[2*k-2]* np.exp(-1j*r[k-1]*omega*jump_points[k-1]))**2
         sum2 = (mu[k]-mu[k-1])*omega**2* u_squared
         
         numerator = sum1 + sum2
-        gradient_jump[k] = numerator/denom 
+        gradient_jump[k-1] = numerator/denom 
 
     return gradient_jump
 
